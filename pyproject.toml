@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cep-fetch"
-version = "0.1.1"
+version = "0.1.2"
 description = "Fetch CEP information from multiple providers concurrently"
 readme = "README.md"
 requires-python = ">=3.11"
