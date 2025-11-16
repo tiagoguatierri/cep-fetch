@@ -1,7 +1,107 @@
 [project]
 name = "cep-fetch"
 version = "0.1.0"
-description = "Add your description here"
+description = "Fetch CEP information from multiple providers concurrently"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "aiohttp[speedups]>=3.13.2",
+]
+
+authors = [
+    { name = "Tiago Guatieri", email = "tiagovit@gmail.com" },
+]
+
+[dependency-groups]
+dev = [
+    "aioresponses>=0.7.7",
+    "ipykernel>=7.1.0",
+    "pytest>=9.0.1",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.14.5",
+    "ty>=0.0.1a26",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tiagovit/cep-fetch"
+"Documentation" = "https://github.com/tiagovit/cep-fetch/README.md"
+"Repository" = "https://github.com/tiagovit/cep-fetch"
+"Issues" = "https://github.com/tiagovit/cep-fetch/issues"
+"Changelog" = "https://github.com/tiagovit/cep-fetch/changelog.md"
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint]
+disable = [
+    "C0114", # Disable missing module docstring
+    "E0402", # Disable import-outside-toplevel
+]
+
+[tool.pyright]
+exclude = [
+    "**/__pycache__",
+    "**/tests",
+]
+ignore = [
+    "tests",
+]
+typeCheckingMode = "standard"
+
+[tool.ruff]
+line-length = 120
+fix = true
+include = [
+    "src/**/*.py",
+]
+exclude = [
+    "src/tests/**/*.py",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+addopts = "-ra -v -p no:warnings --cov=src --cov-report=term-missing --cov-config=pyproject.toml"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.run]
+relative_files = true
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass"
+]
+omit = [
+    "tests/*",
+    "*/__init__.py"
+]
+fail_under = 90
+show_missing = true
+
+[tool.coverage.html]
+directory = "coverage/html"
+
+[tool.ty.src]
+include = [
+    "src/**/*.py",
+]
+exclude = [
+    "tests/**/*.py",
+    "**/__pycache__",
+    "**/__init__.py"
+]
+
+[tool.ty.environment]
+python = "./.venv"

@@ -1,0 +1,76 @@
+"""Tests for OpenCEP provider."""
+
+import pytest
+from aiohttp import ClientSession
+from aioresponses import aioresponses
+
+from src.core.domain import CepResult
+from src.providers import OpenCepProvider
+
+
+class TestOpenCepProvider:
+    """Tests for OpenCEP provider."""
+
+    def test_provider_name(self):
+        """Test that provider name is correct."""
+        provider = OpenCepProvider()
+        assert provider.name == 'opencep'
+
+    @pytest.mark.parametrize(
+        'cep,clean_cep',
+        [
+            ('01001-000', '01001000'),
+            ('01001000', '01001000'),
+            ('01.001-000', '01001000'),
+        ],
+    )
+    def test_clean_cep(self, cep: str, clean_cep: str):
+        """Test CEP cleaning with different formats."""
+        provider = OpenCepProvider()
+        assert provider._clean_cep(cep) == clean_cep
+
+    async def test_get_cep_success(self):
+        """Test successful CEP fetch from OpenCEP."""
+        provider = OpenCepProvider()
+        cep = '01001000'
+
+        mock_response = {
+            'cep': '01001-000',
+            'uf': 'SP',
+            'localidade': 'São Paulo',
+            'bairro': 'Sé',
+            'logradouro': 'Praça da Sé',
+        }
+
+        with aioresponses() as mocked:
+            mocked.get(
+                f'https://opencep.com/v1/{cep}',
+                payload=mock_response,
+                status=200,
+            )
+
+            async with ClientSession() as session:
+                result = await provider.get_cep(session, cep)
+
+                assert isinstance(result, CepResult)
+                assert result.cep == '01001-000'
+                assert result.state == 'SP'
+                assert result.city == 'São Paulo'
+                assert result.neighborhood == 'Sé'
+                assert result.street == 'Praça da Sé'
+                assert result.service == 'opencep'
+
+    async def test_get_cep_http_error(self):
+        """Test HTTP error handling from OpenCEP."""
+        provider = OpenCepProvider()
+        cep = '99999999'
+
+        with aioresponses() as mocked:
+            mocked.get(
+                f'https://opencep.com/v1/{cep}',
+                status=404,
+            )
+
+            async with ClientSession() as session:
+                with pytest.raises(Exception):
+                    await provider.get_cep(session, cep)
