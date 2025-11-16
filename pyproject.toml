@@ -49,6 +49,9 @@ dev = [
 "Issues" = "https://github.com/tiagoguatierri/cep-fetch/issues"
 "Changelog" = "https://github.com/tiagoguatierri/cep-fetch/changelog.md"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
 [tool.pylint.format]
 max-line-length = 120
 
