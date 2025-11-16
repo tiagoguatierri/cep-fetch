@@ -1,15 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "cep-fetch"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fetch CEP information from multiple providers concurrently"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = [
-    "aiohttp[speedups]>=3.13.2",
-]
-
+license = "MIT"
 authors = [
     { name = "Tiago Guatieri", email = "tiagovit@gmail.com" },
+]
+keywords = ["cep", "zipcode", "brazil", "postal-code", "async", "concurrent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: AsyncIO",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "aiohttp[speedups]>=3.13.2",
 ]
 
 [dependency-groups]
@@ -26,11 +43,11 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/tiagovit/cep-fetch"
-"Documentation" = "https://github.com/tiagovit/cep-fetch/README.md"
-"Repository" = "https://github.com/tiagovit/cep-fetch"
-"Issues" = "https://github.com/tiagovit/cep-fetch/issues"
-"Changelog" = "https://github.com/tiagovit/cep-fetch/changelog.md"
+"Homepage" = "https://github.com/tiagoguatierri/cep-fetch"
+"Documentation" = "https://github.com/tiagoguatierri/cep-fetch/README.md"
+"Repository" = "https://github.com/tiagoguatierri/cep-fetch"
+"Issues" = "https://github.com/tiagoguatierri/cep-fetch/issues"
+"Changelog" = "https://github.com/tiagoguatierri/cep-fetch/changelog.md"
 
 [tool.pylint.format]
 max-line-length = 120
