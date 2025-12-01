@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cep-fetch"
-version = "0.1.2"
+version = "0.1.3"
 description = "Fetch CEP information from multiple providers concurrently"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -50,7 +50,7 @@ dev = [
 "Changelog" = "https://github.com/tiagoguatierri/cep-fetch/changelog.md"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/cep_fetch"]
 
 [tool.pylint.format]
 max-line-length = 120

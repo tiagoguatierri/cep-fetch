@@ -3,8 +3,8 @@ from typing import List, Set
 
 import aiohttp
 
-from src.core.interfaces import CepResult, Provider
-from src.providers import ApiCepProvider, BrasilApiProvider, OpenCepProvider, ViaCepProvider
+from cep_fetch.core.interfaces import CepResult, Provider
+from cep_fetch.providers import ApiCepProvider, BrasilApiProvider, OpenCepProvider, ViaCepProvider
 
 
 class CepFetch:

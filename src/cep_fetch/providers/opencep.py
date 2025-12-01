@@ -2,28 +2,25 @@ from typing import Dict
 
 from aiohttp import ClientSession
 
-from src.core.domain import CepResult
-from src.core.interfaces import Provider
+from cep_fetch.core.domain import CepResult
+from cep_fetch.core.interfaces import Provider
 
 
-class ViaCepProvider(Provider):
-    """ViaCEP provider."""
+class OpenCepProvider(Provider):
+    """OpenCEP provider."""
 
     @property
     def name(self) -> str:
-        return 'viacep'
+        return 'opencep'
 
     async def get_cep(self, session: ClientSession, cep: str) -> CepResult:
-        """Get CEP information from ViaCEP."""
+        """Get CEP information from OpenCEP."""
         clean_cep = self._clean_cep(cep)
-        url = f'https://viacep.com.br/ws/{clean_cep}/json/'
+        url = f'https://opencep.com/v1/{clean_cep}'
 
         async with session.get(url) as response:
             response.raise_for_status()
             data: Dict[str, str] = await response.json()
-
-            if 'erro' in data:
-                raise ValueError(f'CEP {cep} não encontrado no ViaCEP')
 
             return CepResult(
                 cep=data.get('cep', ''),

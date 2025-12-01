@@ -4,8 +4,8 @@ import pytest
 from aiohttp import ClientSession
 from aioresponses import aioresponses
 
-from src.core.domain import CepResult
-from src.providers import OpenCepProvider
+from cep_fetch.core.domain import CepResult
+from cep_fetch.providers import OpenCepProvider
 
 
 class TestOpenCepProvider:
