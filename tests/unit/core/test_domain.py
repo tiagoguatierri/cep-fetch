@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.core.domain import CepResult
+from cep_fetch.core.domain import CepResult
 
 
 class TestCepResult:

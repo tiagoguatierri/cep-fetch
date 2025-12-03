@@ -3,8 +3,8 @@
 import pytest
 from aioresponses import aioresponses
 
-from src.cep_fetch import CepFetch
-from src.providers import ApiCepProvider, BrasilApiProvider, OpenCepProvider, ViaCepProvider
+from cep_fetch.cep_fetch import CepFetch
+from cep_fetch.providers import ApiCepProvider, BrasilApiProvider, OpenCepProvider, ViaCepProvider
 
 
 class TestCepFetchWithRealProviders:

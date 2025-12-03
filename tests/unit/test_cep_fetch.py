@@ -5,9 +5,9 @@ import asyncio
 import pytest
 from aiohttp import ClientError, ClientSession
 
-from src.cep_fetch import CepFetch
-from src.core.domain import CepResult
-from src.core.interfaces import Provider
+from cep_fetch.cep_fetch import CepFetch
+from cep_fetch.core.domain import CepResult
+from cep_fetch.core.interfaces import Provider
 
 
 class MockProvider(Provider):

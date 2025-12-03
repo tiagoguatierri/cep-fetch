@@ -3,7 +3,7 @@
 import pytest
 from aiohttp import ClientSession
 
-from src.core.domain import CepResult
+from cep_fetch.core.domain import CepResult
 
 
 @pytest.fixture

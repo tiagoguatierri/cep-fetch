@@ -2,31 +2,31 @@ from typing import Dict
 
 from aiohttp import ClientSession
 
-from src.core.domain import CepResult
-from src.core.interfaces import Provider
+from cep_fetch.core.domain import CepResult
+from cep_fetch.core.interfaces import Provider
 
 
-class BrasilApiProvider(Provider):
-    """BrasilAPI provider."""
+class ApiCepProvider(Provider):
+    """ApiCEP provider."""
 
     @property
     def name(self) -> str:
-        return 'brasilapi'
+        return 'apicep'
 
     async def get_cep(self, session: ClientSession, cep: str) -> CepResult:
-        """Get CEP information from BrasilAPI."""
+        """Get CEP information from ApiCEP."""
         clean_cep = self._clean_cep(cep)
-        url = f'https://brasilapi.com.br/api/cep/v1/{clean_cep}'
+        url = f'https://cdn.apicep.com/file/apicep/{clean_cep}.json'
 
         async with session.get(url) as response:
             response.raise_for_status()
             data: Dict[str, str] = await response.json()
 
             return CepResult(
-                cep=data.get('cep', ''),
+                cep=data.get('code', ''),
                 state=data.get('state', ''),
                 city=data.get('city', ''),
-                neighborhood=data.get('neighborhood'),
-                street=data.get('street'),
+                neighborhood=data.get('district'),
+                street=data.get('address'),
                 service=self.name,
             )
